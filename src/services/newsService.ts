@@ -2,11 +2,16 @@ import axios from 'axios';
 import { NewsResponse } from '../types';
 import { io, Socket } from 'socket.io-client';
 import { connectDB } from '../config/db';
+const socket: Socket = io();
 import { saveNewsToDb, getNewsFromDb, getTrendingNewsFromDb, searchNewsInDb } from './mongoNewsService';
 
-// NewsAPI.org API configuration
-const NEWS_API_KEY = '0a0847163b0b46b3af3b5e2690eedc3a';
-const NEWS_API_URL = 'https://newsapi.org/v2';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+
+const NEWS_API_KEY = process.env.NEWS_API_KEY || '';
+const NEWS_API_URL = process.env.NEWS_API_URL || 'https://newsapi.org/v2';
 
 // Initialize MongoDB connection
 connectDB().catch(console.error);
